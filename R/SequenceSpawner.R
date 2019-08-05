@@ -8,7 +8,7 @@
 #' @export
 spawn_sequences <- function(n = 20000, snps = 100, seed){
   if(missing(seed)){
-    seed <- SeqSpawnR::HXB2
+    seed <- hiv_subtypes[hiv_subtypes$subtype == "B",]$seq
   }
   seednChar <- nchar(seed)
 
@@ -62,11 +62,19 @@ spawn_sequences <- function(n = 20000, snps = 100, seed){
   return(sequences)
 }
 
-#' Pol Region of the HXB2 Strain of HIV
+#' Spawn HIV
 #'
-#' @format A string with 1300 Characters
-"HXB2"
-#> [1] "HXB2"
+#' @param number The number of sequences to spawn
+#' @param subtype
+#' @param snps The Maximum number of SNPs to insert
+#'
+#' @return A vector of Mutant HIV Sequences
+#' @export
+#'
+#' @examples
+spawn_hiv <- function(number, subtype="B", snps = 100){
+  SeqSpawnR::spawn_sequences(number, snps = snps, seed = hiv_subtypes[hiv_subtypes$subtype == subtype,]$seq)
+}
 
 #' write_fasta
 #'
